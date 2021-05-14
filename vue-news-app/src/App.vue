@@ -1,6 +1,7 @@
 <template>
 <v-app light>
     <!-- side menu component will be implemented here -->
+    <SideMenu> </SideMenu>
     <v-toolbar fixed app light clipped-left color="primary" class="elevation-2">
       <v-toolbar-side-icon @click="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
       <v-toolbar-title class="white--text">News App</v-toolbar-title>
@@ -31,10 +32,11 @@
 <script>
 import axios from 'axios'
 import MainContent from './components/MainContent.vue'
+import SideMenu from './components/SideMenu.vue'
 
 export default{
   components:{
-      MainContent,
+      MainContent,SideMenu
   },
   data(){
     return{
