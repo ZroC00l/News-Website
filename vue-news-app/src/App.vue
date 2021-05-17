@@ -1,11 +1,16 @@
 <template>
 <v-app light>
     <!-- side menu component will be implemented here -->
-    <SideMenu> </SideMenu>
-    <v-toolbar fixed app light clipped-left color="primary" class="elevation-2">
-      <v-toolbar-side-icon @click="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
-      <v-toolbar-title class="white--text">News App</v-toolbar-title>
-    </v-toolbar>
+    <SideMenu :drawer="drawer" :api_key="api_key" @selectSource="setResource"> </SideMenu>
+
+      <v-app-bar @click="drawer = !drawer" color="deep-purple accent-4" dense dark>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-toolbar-title class="white--text">News</v-toolbar-title>
+        <v-spacer></v-spacer>
+      </v-app-bar>
+
+
+
 
     <v-content>
       <v-container fluid>
@@ -57,5 +62,18 @@ export default{
       this.errors.push(e)
   })
 },
+ methods: {
+     setResource(source){
+     axios.get('https://newsapi.org/v2/top-headlines?sources='+source+'&apiKey='+this.api_key)
+     .then(response => {
+          this.articles = response.data.articles
+          console.log(response.data)
+       })
+     .catch(e => {
+          this.errors.push(e)
+       })
+
+     }
+   }
 }
 </script>
